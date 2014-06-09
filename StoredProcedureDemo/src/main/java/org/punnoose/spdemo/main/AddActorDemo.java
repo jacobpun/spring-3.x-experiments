@@ -9,7 +9,7 @@ import org.punnoose.spdemo.domain.Actor;
 import org.punnoose.spdemo.domain.Movie;
 import org.punnoose.spdemo.domain.SqlData.SqlActor;
 import org.punnoose.spdemo.domain.SqlData.SqlMovie;
-import org.punnoose.spdemo.procedure.AddSqlActorProcedure;
+import org.punnoose.spdemo.procedure.AddActorProcedure;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -24,7 +24,7 @@ public class AddActorDemo {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"spring-cotext.xml");
-		AddSqlActorProcedure proc = (AddSqlActorProcedure) context
+		AddActorProcedure proc = (AddActorProcedure) context
 				.getBean("addActorSp");
 		DataSource dataSource = (DataSource) context.getBean("dataSource");
 

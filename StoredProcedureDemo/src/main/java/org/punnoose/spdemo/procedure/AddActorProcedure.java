@@ -12,13 +12,13 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 /** SP to add an Actor to the DB **/
-public class AddSqlActorProcedure extends StoredProcedure {
+public class AddActorProcedure extends StoredProcedure {
 
 	private static final String SP_NAME = "add_actor";
 	private static final String SP_INPUT_PARAMETER_TYPE = "ACTOR_TYPE";
 	private static final String SP_INPUT_PARAMETER_NAME = "in_actor";
 
-	public AddSqlActorProcedure(DataSource dataSource) {
+	public AddActorProcedure(DataSource dataSource) {
 		super(dataSource, SP_NAME);
 		declareParameter(new SqlParameter(SP_INPUT_PARAMETER_NAME,
 				OracleTypes.STRUCT, SP_INPUT_PARAMETER_TYPE));

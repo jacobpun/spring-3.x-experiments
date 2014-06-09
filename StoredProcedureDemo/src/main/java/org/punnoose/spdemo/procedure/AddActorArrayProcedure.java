@@ -14,13 +14,13 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 /** SP to add a List of Actors to the DB **/
-public class AddSqlActorArrayProcedure extends StoredProcedure {
+public class AddActorArrayProcedure extends StoredProcedure {
 
 	private static final String SP_NAME = "add_actor_array";
 	private static final String SP_INPUT_PARAMETER_TYPE = "ACTOR_ARRAY_TYPE";
 	private static final String SP_INPUT_PARAMETER_NAME = "in_actor_array";
 
-	public AddSqlActorArrayProcedure(DataSource dataSource) {
+	public AddActorArrayProcedure(DataSource dataSource) {
 		super(dataSource, SP_NAME);
 		declareParameter(new SqlParameter(SP_INPUT_PARAMETER_NAME,
 				OracleTypes.ARRAY, SP_INPUT_PARAMETER_TYPE));

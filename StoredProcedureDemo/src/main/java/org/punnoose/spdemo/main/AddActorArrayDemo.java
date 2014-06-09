@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 import org.punnoose.spdemo.domain.Actor;
 import org.punnoose.spdemo.domain.SqlData.SqlActor;
-import org.punnoose.spdemo.procedure.AddSqlActorArrayProcedure;
+import org.punnoose.spdemo.procedure.AddActorArrayProcedure;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,7 +21,7 @@ public class AddActorArrayDemo {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"spring-cotext.xml");
-		AddSqlActorArrayProcedure proc = (AddSqlActorArrayProcedure) context
+		AddActorArrayProcedure proc = (AddActorArrayProcedure) context
 				.getBean("addActorArraySp");
 		DataSource dataSource = (DataSource) context.getBean("dataSource");
 

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.punnoose.spdemo.domain.Actor;
 import org.punnoose.spdemo.domain.SqlData.SqlActor;
-import org.punnoose.spdemo.procedure.AddSqlActorArrayProcedure;
-import org.punnoose.spdemo.procedure.AddSqlActorProcedure;
+import org.punnoose.spdemo.procedure.AddActorArrayProcedure;
+import org.punnoose.spdemo.procedure.AddActorProcedure;
 import org.punnoose.spdemo.procedure.DeleteActorsByNameProc;
 import org.punnoose.spdemo.procedure.DeleteActorsProc;
 import org.springframework.context.ApplicationContext;
