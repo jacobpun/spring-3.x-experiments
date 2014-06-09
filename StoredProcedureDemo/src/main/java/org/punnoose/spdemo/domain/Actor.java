@@ -1,11 +1,14 @@
 package org.punnoose.spdemo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Actor {
 
     private Long id;
     private String name;
     private int age;
-
+    private List<Movie> movies = new ArrayList<Movie>();
 
     public Long getId() {
         return id;
@@ -34,4 +37,16 @@ public class Actor {
     public String toString() {
     return "Actor: [" + id + "] " + name + " " + age;
     }
+
+	public List<Movie> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+	}
+	
+	public void addMovie(Movie movie){
+		this.movies.add(movie);
+	}
 }

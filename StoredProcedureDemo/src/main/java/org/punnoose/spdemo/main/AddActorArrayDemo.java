@@ -3,10 +3,11 @@ package org.punnoose.spdemo.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.punnoose.spdemo.domain.Actor;
+import org.punnoose.spdemo.domain.SqlData.SqlActor;
 import org.punnoose.spdemo.procedure.AddSqlActorArrayProcedure;
-import org.punnoose.spdemo.procedure.AddSqlActorProcedure;
-import org.punnoose.spdemo.procedure.SqlActor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,27 +16,34 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author jacobp
  *
  */
-public class SPDemoMainAddActorArray {
+public class AddActorArrayDemo {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"spring-cotext.xml");
 		AddSqlActorArrayProcedure proc = (AddSqlActorArrayProcedure) context
 				.getBean("addActorArraySp");
+		DataSource dataSource = (DataSource) context.getBean("dataSource");
 
-		List<Actor> actors = getFakeActors(10);
-		proc.execute(actors);
+		final int FAKE_ACTORS_COUNT = 10;
+		List<Actor> actorsToAdd = getFakeActors(FAKE_ACTORS_COUNT, dataSource);
+		
+		proc.execute(actorsToAdd);
 	}
 
-	private static List<Actor> getFakeActors(int count) {
+	private static List<Actor> getFakeActors(int count, DataSource dataSource) {
 		List<Actor> actors = new ArrayList<Actor>();
 		for (int i = 0; i < count; i++) {
-			Actor actor = new SqlActor();
-			actor.setAge(10 + i);
-			actor.setId((long) i);
-			actor.setName("Actor-" + i);
-			actors.add(actor);
+			actors.add(createFakeActor(dataSource, i));
 		}
 		return actors;
+	}
+
+	private static Actor createFakeActor(DataSource dataSource, int index) {
+		Actor actor = new SqlActor(dataSource);
+		actor.setAge(10 + index);
+		actor.setId((long) index);
+		actor.setName("Actor-" + index);
+		return actor;
 	}
 }
