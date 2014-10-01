@@ -22,7 +22,8 @@ public class PersonService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PersonDto savePerson(PersonDto personDto) {
-		return toPersonDto(personRepository.save(toPersonEntity(personDto)));
+		Person personEntity = personRepository.save(toPersonEntity(personDto));
+		return toPersonDto(personEntity);
 	}
 
 	@Transactional(readOnly = true)
@@ -32,11 +33,9 @@ public class PersonService {
 
 	@Transactional(readOnly = true)
 	public List<PersonDto> getByFirstName(String firstName) {
-		List<PersonDto> personDtos = new ArrayList<PersonDto>();
-		for (Person person : personRepository.getByFirstName(firstName)) {
-			personDtos.add(toPersonDto(person));
-		}
-		return personDtos;
+		List<Person> personEntities = personRepository
+				.getByFirstName(firstName);
+		return toPersonDtos(personEntities);
 	}
 
 	@Transactional(readOnly = true)
@@ -49,9 +48,9 @@ public class PersonService {
 	 */
 	@Transactional(readOnly = true)
 	public List<PersonDto> getByFirstNameLike(String firstName) {
-		List<Person> persons = personRepository
+		List<Person> personEntities = personRepository
 				.getByFirstNameLike(getLikePattern(firstName));
-		return toPersonDtos(persons);
+		return toPersonDtos(personEntities);
 	}
 
 	/*
@@ -62,14 +61,14 @@ public class PersonService {
 		QPerson qperson = QPerson.person;
 		BooleanExpression personHasPhone = qperson.phone.isNotNull();
 		BooleanExpression personHasEmail = qperson.email.isNotNull();
-		Iterable<Person> persons = personRepository.findAll(personHasPhone
-				.or(personHasEmail));
-		return toPersonDtos(persons);
+		Iterable<Person> personEntities = personRepository
+				.findAll(personHasPhone.or(personHasEmail));
+		return toPersonDtos(personEntities);
 	}
 
-	private List<PersonDto> toPersonDtos(Iterable<Person> persons) {
+	private List<PersonDto> toPersonDtos(Iterable<Person> personEntities) {
 		List<PersonDto> personDtos = new ArrayList<PersonDto>();
-		for (Person person : persons) {
+		for (Person person : personEntities) {
 			personDtos.add(toPersonDto(person));
 		}
 		return personDtos;
@@ -86,12 +85,12 @@ public class PersonService {
 	 * @return
 	 */
 	private Person toPersonEntity(PersonDto personDto) {
-		Person person = new Person();
-		person.setFirstName(personDto.getFirstName());
-		person.setLastName(personDto.getLastName());
-		person.setPhone(personDto.getPhone());
-		person.setEmail(personDto.getEmail());
-		return person;
+		Person personEntity = new Person();
+		personEntity.setFirstName(personDto.getFirstName());
+		personEntity.setLastName(personDto.getLastName());
+		personEntity.setPhone(personDto.getPhone());
+		personEntity.setEmail(personDto.getEmail());
+		return personEntity;
 	}
 
 	/**
@@ -100,11 +99,16 @@ public class PersonService {
 	 * @param personDto
 	 * @return
 	 */
-	private PersonDto toPersonDto(Person person) {
-		PersonDto personDto = new PersonDto(person.getUserId(),
-				person.getFirstName(), person.getLastName());
-		personDto.setEmail(person.getEmail());
-		personDto.setPhone(person.getPhone());
+	private PersonDto toPersonDto(Person personEntity) {
+		
+		PersonDto personDto = new PersonDto(
+				personEntity.getUserId(),
+				personEntity.getFirstName(),
+				personEntity.getLastName());
+		
+		personDto.setEmail(personEntity.getEmail());
+		personDto.setPhone(personEntity.getPhone());
+		
 		return personDto;
 	}
 }

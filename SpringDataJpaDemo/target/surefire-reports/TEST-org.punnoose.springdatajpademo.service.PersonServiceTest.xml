@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="3.221" errors="0" skipped="0" tests="3" name="org.punnoose.springdatajpademo.service.PersonServiceTest">
+<testsuite failures="0" time="3.551" errors="0" skipped="0" tests="4" name="org.punnoose.springdatajpademo.service.PersonServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/amd64"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/punnoose/dev/workspace/spring-3.x/SpringDataJpaDemo"/>
+    <property name="user.dir" value="/home/punnoose/dev/others/git/spring-3.x-experiments/SpringDataJpaDemo"/>
     <property name="java.runtime.version" value="1.7.0_45-b18"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/endorsed"/>
@@ -24,13 +24,13 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/home/punnoose/dev/workspace/spring-3.x/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf8637369431359833217.tmp"/>
+    <property name="classworlds.conf" value="/home/punnoose/dev/workspace/spring-3.x/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf2809347419733296034.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/amd64/server:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/amd64:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/../lib/amd64:/usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64/server:/usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64:/usr/lib/jvm/java-6-openjdk-amd64/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="51.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="3.13.0-35-generic"/>
+    <property name="os.version" value="3.13.0-36-generic"/>
     <property name="user.home" value="/home/punnoose"/>
     <property name="user.timezone" value="America/New_York"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
@@ -51,7 +51,7 @@
     <property name="securerandom.source" value="file:/dev/./urandom"/>
     <property name="sun.boot.class.path" value="/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/resources.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/rt.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/sunrsasign.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/jsse.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/jce.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/charsets.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/jfr.jar:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/classes"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="/home/punnoose/dev/workspace/spring-3.x/SpringDataJpaDemo/EMBEDDED"/>
+    <property name="maven.home" value="/home/punnoose/dev/others/git/spring-3.x-experiments/SpringDataJpaDemo/EMBEDDED"/>
     <property name="file.separator" value="/"/>
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
     <property name="maven.bootclasspath" value="/home/punnoose/dev/tools/eclipse/eclipse/configuration/org.eclipse.osgi/bundles/528/1/.cp/jars/plexus-classworlds-2.4.jar"/>
@@ -60,7 +60,8 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="3.033" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_get_person_by_first_name"/>
-  <testcase time="0.031" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQueryInRepository"/>
-  <testcase time="0.035" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_save_person"/>
+  <testcase time="3.251" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_get_person_by_first_name"/>
+  <testcase time="0.019" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQueryInRepository"/>
+  <testcase time="0.117" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQuryDsl"/>
+  <testcase time="0.027" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_save_person"/>
 </testsuite>
