@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="3.551" errors="0" skipped="0" tests="4" name="org.punnoose.springdatajpademo.service.PersonServiceTest">
+<testsuite failures="2" time="4.826" errors="0" skipped="0" tests="4" name="org.punnoose.springdatajpademo.service.PersonServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/amd64"/>
@@ -24,7 +24,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/home/punnoose/dev/workspace/spring-3.x/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf2809347419733296034.tmp"/>
+    <property name="classworlds.conf" value="/home/punnoose/dev/workspace/spring-3.x/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf2157292240957347642.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/amd64/server:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/lib/amd64:/home/punnoose/dev/tools/jdk7/jdk1.7.0_45/jre/../lib/amd64:/usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64/server:/usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64:/usr/lib/jvm/java-6-openjdk-amd64/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -60,8 +60,142 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="3.251" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_get_person_by_first_name"/>
-  <testcase time="0.019" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQueryInRepository"/>
-  <testcase time="0.117" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQuryDsl"/>
-  <testcase time="0.027" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_save_person"/>
+  <testcase time="4.388" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_get_person_by_first_name">
+    <failure message="
+Expected: &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24c6b8&gt;
+     but: was &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24d16a&gt;" type="java.lang.AssertionError">java.lang.AssertionError: 
+Expected: &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24c6b8&gt;
+     but: was &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24d16a&gt;
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:865)
+	at org.junit.Assert.assertThat(Assert.java:832)
+	at org.punnoose.springdatajpademo.service.PersonServiceTest.should_get_person_by_first_name(PersonServiceTest.java:51)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+</failure>
+    <system-out>Hibernate: drop table PERSON_DETAILS
+Hibernate: create table PERSON_DETAILS (USER_ID bigint generated by default as identity, EMAIL_ID varchar(255), FIRST_NAME varchar(255), LAST_NAME varchar(255), PHONE_NUMBER varchar(255), primary key (USER_ID))
+Hibernate: insert into PERSON_DETAILS (USER_ID, EMAIL_ID, FIRST_NAME, LAST_NAME, PHONE_NUMBER) values (default, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into PERSON_DETAILS (USER_ID, EMAIL_ID, FIRST_NAME, LAST_NAME, PHONE_NUMBER) values (default, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: select person0_.USER_ID as USER_ID1_0_, person0_.EMAIL_ID as EMAIL_ID2_0_, person0_.FIRST_NAME as FIRST_NA3_0_, person0_.LAST_NAME as LAST_NAM4_0_, person0_.PHONE_NUMBER as PHONE_NU5_0_ from PERSON_DETAILS person0_ where person0_.FIRST_NAME=? order by person0_.FIRST_NAME desc, person0_.LAST_NAME asc
+******EQUALS INVOKED**********
+</system-out>
+    <system-err>SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Oct 01, 2014 9:24:28 PM org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+INFO: HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+Oct 01, 2014 9:24:28 PM org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate Core {4.3.6.Final}
+Oct 01, 2014 9:24:28 PM org.hibernate.cfg.Environment &lt;clinit&gt;
+INFO: HHH000206: hibernate.properties not found
+Oct 01, 2014 9:24:28 PM org.hibernate.cfg.Environment buildBytecodeProvider
+INFO: HHH000021: Bytecode provider name : javassist
+Oct 01, 2014 9:24:28 PM org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
+INFO: HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+Oct 01, 2014 9:24:29 PM org.hibernate.dialect.Dialect &lt;init&gt;
+INFO: HHH000400: Using dialect: org.hibernate.dialect.DerbyDialect
+Oct 01, 2014 9:24:29 PM org.hibernate.dialect.DerbyDialect &lt;init&gt;
+WARN: HHH000430: The DerbyDialect dialect has been deprecated; use one of the version-specific dialects instead
+Oct 01, 2014 9:24:29 PM org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+INFO: HHH000397: Using ASTQueryTranslatorFactory
+Oct 01, 2014 9:24:29 PM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000227: Running hbm2ddl schema export
+Oct 01, 2014 9:24:29 PM org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table PERSON_DETAILS
+Oct 01, 2014 9:24:29 PM org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: Schema &apos;SA&apos; does not exist
+Oct 01, 2014 9:24:29 PM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000230: Schema export complete
+</system-err>
+  </testcase>
+  <testcase time="0.021" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQueryInRepository">
+    <failure message="
+Expected: &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24c6b8&gt;
+     but: was &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24d6c3&gt;" type="java.lang.AssertionError">java.lang.AssertionError: 
+Expected: &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24c6b8&gt;
+     but: was &lt;org.punnoose.springdatajpademo.dto.PersonDto@1c24d6c3&gt;
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:865)
+	at org.junit.Assert.assertThat(Assert.java:832)
+	at org.punnoose.springdatajpademo.service.PersonServiceTest.testQueryInRepository(PersonServiceTest.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+</failure>
+    <system-out>Hibernate: insert into PERSON_DETAILS (USER_ID, EMAIL_ID, FIRST_NAME, LAST_NAME, PHONE_NUMBER) values (default, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: select person0_.USER_ID as USER_ID1_0_, person0_.EMAIL_ID as EMAIL_ID2_0_, person0_.FIRST_NAME as FIRST_NA3_0_, person0_.LAST_NAME as LAST_NAM4_0_, person0_.PHONE_NUMBER as PHONE_NU5_0_ from PERSON_DETAILS person0_ where person0_.FIRST_NAME like ?
+******EQUALS INVOKED**********
+</system-out>
+  </testcase>
+  <testcase time="0.177" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="testQuryDsl"/>
+  <testcase time="0.032" classname="org.punnoose.springdatajpademo.service.PersonServiceTest" name="should_save_person"/>
 </testsuite>

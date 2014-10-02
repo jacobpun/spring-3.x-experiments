@@ -7,27 +7,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 @Entity
-@Table(name="PERSON_DETAILS")
+@Table(name = "PERSON_DETAILS")
 public class Person {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
 	private long userId;
-	
-	@Column(name = "FIRST_NAME")	
+
+	@Column(name = "FIRST_NAME")
 	private String firstName;
-	
-	@Column(name = "LAST_NAME")	
+
+	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@Column(name = "PHONE_NUMBER")	
+	@Column(name = "PHONE_NUMBER")
 	private String phone;
-	
-	@Column(name = "EMAIL_ID")	
+
+	@Column(name = "EMAIL_ID")
 	private String email;
-	
+
 	public long getUserId() {
 		return userId;
 	}
@@ -67,4 +70,15 @@ public class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[]{"id"});
+	}
+
+	@Override
+	public boolean equals(Object that) {
+		return EqualsBuilder.reflectionEquals(this, that, new String[]{"id"});
+	}
+
 }

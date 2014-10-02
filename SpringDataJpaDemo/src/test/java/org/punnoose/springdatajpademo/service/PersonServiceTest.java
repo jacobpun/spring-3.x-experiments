@@ -1,8 +1,17 @@
 package org.punnoose.springdatajpademo.service;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.DUMMY_PERSON_1;
+import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.DUMMY_PERSON_2;
+import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.PERSON_WITH_EMAIL;
+import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.PERSON_WITH_EMAIL_AND_PHONE;
+import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.PERSON_WITH_NO_EMAIL_AND_NO_PHONE;
+import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.PERSON_WITH_PHONE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.punnoose.springdatajpademo.config.JpaConfiguration;
 import org.punnoose.springdatajpademo.dto.PersonDto;
+import org.punnoose.springdatajpademo.service.sortcriteria.SortCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -23,90 +33,68 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Transactional
 public class PersonServiceTest {
 
-	private static final String LAST_NAME = "Pullolickal";
-	private static final String FIRST_NAME = "Punnoose";
-
 	@Autowired
 	private PersonService personService;
 
 	@Test
 	@Rollback
-	public void should_save_person() {
+	public void testSave() {
 		long initialCount = personService.getTotalPersonsCount();
-
-		saveDummyUser();
-
+		savePerson(DUMMY_PERSON_1);
 		long finalCount = personService.getTotalPersonsCount();
-
-		assertThat(finalCount, is(initialCount + 1));
+		assertThat(finalCount, equalTo(initialCount + 1));
 	}
 
 	@Test
 	@Rollback
-	public void should_get_person_by_first_name() {
-		saveDummyUser();
-		List<PersonDto> personDto = personService.getByFirstName(FIRST_NAME);
-		assertThat(personDto.get(0).getFirstName(), is(FIRST_NAME));
+	public void testGetAndSort() {
+		savePerson(DUMMY_PERSON_2);
+		savePerson(DUMMY_PERSON_1);
+		List<PersonDto> personDtos = personService
+				.getByFirstNameOrderByFirstNameDescLastNameAsc(DUMMY_PERSON_1
+						.getFirstName());
+		assertThat(personDtos, contains(DUMMY_PERSON_1));
 	}
 
 	@Test
 	@Rollback
-	public void testQueryInRepository() {
-		saveDummyUser();
-		List<PersonDto> personDto = personService
-				.getByFirstNameLike(FIRST_NAME);
-		assertThat(personDto.get(0).getFirstName(), is(FIRST_NAME));
+	public void testQueryAnnotationInRepository() {
+		savePerson(DUMMY_PERSON_1);
+		savePerson(DUMMY_PERSON_2);
+		List<PersonDto> personDtos = personService.getByFirstNameLike("DUMMY");
+		assertThat(personDtos,
+				containsInAnyOrder(DUMMY_PERSON_1, DUMMY_PERSON_2));
 	}
 
 	@Test
 	@Rollback
 	public void testQuryDsl() {
-		saveUserWithEmail();
-		saveUserWithPhone();
-		saveUserWithEmailAndPhone();
-		saveUserWithNoEmailAndNoPhone();
-		List<PersonDto> personDto = personService.getPersonsHavingPhoneOrEmail();
-		assertThat(personDto.size(), is(3));
+		savePerson(PERSON_WITH_EMAIL);
+		savePerson(PERSON_WITH_PHONE);
+		savePerson(PERSON_WITH_EMAIL_AND_PHONE);
+		savePerson(PERSON_WITH_NO_EMAIL_AND_NO_PHONE);
+
+		@SuppressWarnings("serial")
+		List<PersonDto> personDtos = personService
+				.getPersonsHavingPhoneOrEmail(new ArrayList<SortCriteria>() {
+					{
+						add(new SortCriteria("lastName",
+								SortCriteria.SortDirection.ASC));
+						add(new SortCriteria("firstName",
+								SortCriteria.SortDirection.DESC));
+					}
+				});
+		assertThat(personDtos.size(), equalTo(3));
+		assertThat(
+				personDtos,
+				contains(
+						PERSON_WITH_EMAIL, 
+						PERSON_WITH_EMAIL_AND_PHONE,
+						PERSON_WITH_PHONE
+				));
 	}
 
-	private void saveUserWithNoEmailAndNoPhone() {
-		final int DUMMY_ID = 0;
-		PersonDto personDto = new PersonDto(DUMMY_ID,
-				"with_no_phone_and_no_email_user_fname",
-				"with_no_phone_and_no_email_user_lname");
-		personService.savePerson(personDto);
-	}
-
-	private void saveUserWithEmailAndPhone() {
-		final int DUMMY_ID = 0;
-		PersonDto personDto = new PersonDto(DUMMY_ID,
-				"with_phone_and_email_user_fname",
-				"with_phone_and_email_user_lname");
-		personDto.setPhone("some phone");
-		personDto.setPhone("some email");
-		personService.savePerson(personDto);
-	}
-
-	private void saveUserWithPhone() {
-		final int DUMMY_ID = 0;
-		PersonDto personDto = new PersonDto(DUMMY_ID, "with_phone_user_fname",
-				"with_phone_user_lname");
-		personDto.setPhone("some phone");
-		personService.savePerson(personDto);
-	}
-
-	private void saveUserWithEmail() {
-		final int DUMMY_ID = 0;
-		PersonDto personDto = new PersonDto(DUMMY_ID, "with_email_user_fname",
-				"with_email_user_lname");
-		personDto.setEmail("some email");
-		personService.savePerson(personDto);
-	}
-
-	private void saveDummyUser() {
-		final int DUMMY_ID = 0;
-		PersonDto personDto = new PersonDto(DUMMY_ID, FIRST_NAME, LAST_NAME);
-		personDto.setEmail("punnoosekuttyj@yahoo.com");
+	private void savePerson(PersonDto personDto) {
 		personService.savePerson(personDto);
 	}
 }

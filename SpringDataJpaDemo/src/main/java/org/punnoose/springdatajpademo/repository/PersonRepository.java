@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends JpaRepository<Person, Long>, QueryDslPredicateExecutor<Person>{
 
-	List<Person> getByFirstName(String firstName);
+	List<Person> getByFirstNameOrderByFirstNameDescLastNameAsc(String firstName);
 	
 	@Query("SELECT p from Person p WHERE p.firstName like :firstName")
 	List<Person> getByFirstNameLike(@Param("firstName") String firstName);
