@@ -3,7 +3,7 @@ package org.punnoose.spring.rest.domain;
 public class Person {
 
 	private String name;
-	private String country="UK";
+	private String country="US";
 	
 	
 	public Person(String name){
