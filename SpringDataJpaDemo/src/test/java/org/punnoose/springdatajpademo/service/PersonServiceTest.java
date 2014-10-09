@@ -3,7 +3,7 @@ package org.punnoose.springdatajpademo.service;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.DUMMY_PERSON_1;
 import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.DUMMY_PERSON_2;
 import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixture.PERSON_WITH_EMAIL;
@@ -13,6 +13,8 @@ import static org.punnoose.springdatajpademo.service.PersonServiceTestDataFixtur
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javassist.expr.NewArray;
 
 import javax.transaction.Transactional;
 
@@ -36,6 +38,7 @@ public class PersonServiceTest {
 	@Autowired
 	private PersonService personService;
 
+	
 	@Test
 	@Rollback
 	public void testSave() {

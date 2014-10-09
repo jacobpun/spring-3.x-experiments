@@ -23,23 +23,20 @@ import com.mysema.query.types.path.StringPath;
 
 @Service
 public class PersonService {
-
+	
 	@Autowired
 	private PersonRepository personRepository;
 
 	
 	
-	@Transactional(propagation = Propagation.REQUIRED)
-	public PersonDto savePerson(PersonDto personDto) {
-		Person personEntity = personRepository.save(toPersonEntity(personDto));
-		return toPersonDto(personEntity);
-	}
-
-	
-	
+	/**
+	 * This method uses @Query
+	 */
 	@Transactional(readOnly = true)
-	public Person getById(long id) {
-		return personRepository.findOne(id);
+	public List<PersonDto> getByFirstNameLike(String firstName) {
+		List<Person> personEntities = personRepository
+				.getByFirstNameLike(getLikePattern(firstName));
+		return toPersonDtos(personEntities);
 	}
 
 	
@@ -58,20 +55,14 @@ public class PersonService {
 	
 	
 	@Transactional(readOnly = true)
-	public long getTotalPersonsCount() {
-		return personRepository.count();
+	public Person getById(long id) {
+		return personRepository.findOne(id);
 	}
 
 	
 	
-	/**
-	 * This method uses @Query
-	 */
-	@Transactional(readOnly = true)
-	public List<PersonDto> getByFirstNameLike(String firstName) {
-		List<Person> personEntities = personRepository
-				.getByFirstNameLike(getLikePattern(firstName));
-		return toPersonDtos(personEntities);
+	private String getLikePattern(String paramName) {
+		return "%" + paramName + "%";
 	}
 
 	
@@ -96,11 +87,30 @@ public class PersonService {
 
 	
 	
+	@Transactional(readOnly = true)
+	public long getTotalPersonsCount() {
+		return personRepository.count();
+	}
+
+	
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public PersonDto savePerson(PersonDto personDto) {
+		Person personEntity = personRepository.save(toPersonEntity(personDto));
+		return toPersonDto(personEntity);
+	}
+
+	
+	
 	private OrderSpecifier<?>[] toOrderSpecs(List<SortCriteria> sortCriteria) {
 
 		List<OrderSpecifier<?>> orderSpecs = new ArrayList<>();
 
 		CollectionUtils.collect(sortCriteria, new Transformer() {
+			private Order getSortOrder(SortCriteria item) {
+				return Order.valueOf(item.getDirection().name());
+			}
+
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public Object transform(Object objectTobeTransformed) {
@@ -110,40 +120,9 @@ public class PersonService {
 				return new OrderSpecifier(getSortOrder(item), propertyExp);
 			}
 
-			private Order getSortOrder(SortCriteria item) {
-				return Order.valueOf(item.getDirection().name());
-			}
-
 		}, orderSpecs);
 
 		return orderSpecs.toArray(new OrderSpecifier<?>[orderSpecs.size()]);
-	}
-
-	
-	
-	private List<PersonDto> toPersonDtos(Iterable<Person> personEntities) {
-		List<PersonDto> personDtos = new ArrayList<PersonDto>();
-		CollectionUtils.collect(personEntities.iterator(),
-				new PersonEntityToDtoTransformer(), personDtos);
-		return personDtos;
-	}
-
-	
-	
-	private String getLikePattern(String paramName) {
-		return "%" + paramName + "%";
-	}
-
-	
-	
-	/**
-	 * Utility method to convert DTO to Entity
-	 * 
-	 * @param personDto
-	 * @return
-	 */
-	private Person toPersonEntity(PersonDto personDto) {
-		return (Person) new PersonDtoToEntityTransformer().transform(personDto);
 	}
 
 	
@@ -160,20 +139,25 @@ public class PersonService {
 
 	
 	
-	private static class PersonEntityToDtoTransformer implements Transformer {
-		@Override
-		public Object transform(Object objectTobeTransformed) {
-			Person personEntity = (Person) objectTobeTransformed;
-			PersonDto personDto = new PersonDto(personEntity.getUserId(),
-					personEntity.getFirstName(), personEntity.getLastName());
-
-			personDto.setEmail(personEntity.getEmail());
-			personDto.setPhone(personEntity.getPhone());
-
-			return personDto;
-		}
+	private List<PersonDto> toPersonDtos(Iterable<Person> personEntities) {
+		List<PersonDto> personDtos = new ArrayList<PersonDto>();
+		CollectionUtils.collect(personEntities.iterator(),
+				new PersonEntityToDtoTransformer(), personDtos);
+		return personDtos;
 	}
 
+	
+	
+	/**
+	 * Utility method to convert DTO to Entity
+	 * 
+	 * @param personDto
+	 * @return
+	 */
+	private Person toPersonEntity(PersonDto personDto) {
+		return (Person) new PersonDtoToEntityTransformer().transform(personDto);
+	}
+	
 	
 	
 	private static class PersonDtoToEntityTransformer implements Transformer {
@@ -186,6 +170,22 @@ public class PersonService {
 			personEntity.setPhone(personDto.getPhone());
 			personEntity.setEmail(personDto.getEmail());
 			return personEntity;
+		}
+	}
+
+	
+	
+	private static class PersonEntityToDtoTransformer implements Transformer {
+		@Override
+		public Object transform(Object objectTobeTransformed) {
+			Person personEntity = (Person) objectTobeTransformed;
+			PersonDto personDto = new PersonDto(personEntity.getUserId(),
+					personEntity.getFirstName(), personEntity.getLastName());
+
+			personDto.setEmail(personEntity.getEmail());
+			personDto.setPhone(personEntity.getPhone());
+
+			return personDto;
 		}
 	}
 }

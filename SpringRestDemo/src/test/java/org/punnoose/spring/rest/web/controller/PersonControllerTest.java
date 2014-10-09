@@ -36,26 +36,32 @@ public class PersonControllerTest {
 	public void testGetAll() throws Exception {
 
 		PersonService mockPersonService = mock(PersonService.class);
-		when(mockPersonService.getAll()).thenReturn(Arrays.asList(FAKE_PERSON_1, FAKE_PERSON_2));
+		when(mockPersonService.getAll()).thenReturn(
+				Arrays.asList(FAKE_PERSON_1, FAKE_PERSON_2));
 
 		PersonController controller = new PersonController();
 		controller.setService(mockPersonService);
 
-		MockMvc mockMvc = standaloneSetup(controller)
-								.setMessageConverters(new MappingJackson2HttpMessageConverter())
-								.build();
+		MockMvc mockMvc = standaloneSetup(controller).setMessageConverters(
+				new MappingJackson2HttpMessageConverter()).build();
 
 		mockMvc.perform(get("/persons").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content().contentType(TestUtil.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$", hasSize(2)))
 				.andExpect(
-						jsonPath("$[*].name",containsInAnyOrder(FAKE_PERSON_1.getName(),FAKE_PERSON_2.getName())));
+						jsonPath(
+								"$[*].name",
+								containsInAnyOrder(FAKE_PERSON_1.getName(),
+										FAKE_PERSON_2.getName())));
 	}
 }
 
-class TestUtil {
-	private TestUtil(){}
+final class TestUtil {
+	private TestUtil() {
+	}
+
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(
 			MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));

@@ -1,69 +1,95 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.punnoose.spring.rest</groupId>
-	<artifactId>SpringRestDemo</artifactId>
+	<groupId>org.punnoose.spring.ehcache</groupId>
+	<artifactId>Spring-Ehcache-JGoups-Demo</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringRestDemo Maven Webapp</name>
+	<name>Spring-Ehcache-JGoupsReplication-Demo Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${net.sf.ehcache.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${junit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.1.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>${javax.servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>spring-mock-mvc</artifactId>
-			<version>2.3.3</version>
+			<version>${com.jayway.restassured.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>${org.mockito.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
+			<version>${org.codehaus.jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.4.2</version>
+			<version>${com.fasterxml.jackson.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.4.2</version>
+			<version>${com.fasterxml.jackson.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
-			<version>0.8.1</version>
+			<version>${com.jayway.jsonpath.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path-assert</artifactId>
-			<version>0.8.1</version>
+			<version>${com.jayway.jsonpath.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-jgroupsreplication</artifactId>
+			<version>1.7</version>
+		</dependency>
 	</dependencies>
+	<properties>
+		<com.jayway.jsonpath.version>0.8.1</com.jayway.jsonpath.version>
+		<com.fasterxml.jackson.core.version>2.4.2</com.fasterxml.jackson.core.version>
+		<com.jayway.restassured.version>2.3.3</com.jayway.restassured.version>
+		<org.springframework.version>4.1.0.RELEASE</org.springframework.version>
+		<junit.version>4.11</junit.version>
+		<org.mockito.version>1.9.5</org.mockito.version>
+		<javax.servlet.version>3.0.1</javax.servlet.version>
+		<org.codehaus.jackson.version>1.9.13</org.codehaus.jackson.version>
+		<net.sf.ehcache.version>2.6.9</net.sf.ehcache.version>
+	</properties>
 	<build>
-		<finalName>SpringRestDemo</finalName>
+		<finalName>Spring-Ehcache-JGoups-Demo</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

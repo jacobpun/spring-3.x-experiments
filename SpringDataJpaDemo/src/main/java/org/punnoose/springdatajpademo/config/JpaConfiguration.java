@@ -21,6 +21,7 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+
 @Configuration
 @EnableJpaRepositories(basePackages = { "org.punnoose.springdatajpademo.repository" })
 @ComponentScan(basePackages = { "org.punnoose.springdatajpademo.service" })
