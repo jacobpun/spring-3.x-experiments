@@ -9,7 +9,7 @@
 
     <cache name="personCache" eternal="false" maxElementsInMemory="100"
         overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
-        timeToLiveSeconds="60" memoryStoreEvictionPolicy="LRU">       
+        timeToLiveSeconds="60" memoryStoreEvictionPolicy="LRU" statistics="true">       
 
       <cacheEventListenerFactory
             class="net.sf.ehcache.distribution.jgroups.JGroupsCacheReplicatorFactory"
