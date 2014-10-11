@@ -12,6 +12,8 @@ public class OrderBuilder {
 	private long id;
 	private Date orderDate;
 	private double totalCost;
+	private String customerName;
+	
 	private List<OrderLineItem> lineItems = new ArrayList<OrderLineItem>();
 
 	public static OrderBuilder anOrder() {
@@ -34,6 +36,11 @@ public class OrderBuilder {
 		return this;
 	}
 
+	public OrderBuilder withCustomerName(String customerName) {
+		this.customerName = customerName;
+		return this;
+	}
+
 	public OrderBuilder havingLineItem(long itemNumber, String itemName,
 			Long quantity, Double price) {
 		OrderLineItem item = new OrderLineItem();
@@ -51,6 +58,7 @@ public class OrderBuilder {
 		order.setOrderDate(this.orderDate);
 		order.setTotalCost(totalCost);
 		order.setLineItems(lineItems);
+		order.setCustomerName(customerName);
 		return order;
 	}
 }

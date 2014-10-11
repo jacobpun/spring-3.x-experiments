@@ -11,6 +11,7 @@ public class TestDataFixture {
 		return anOrder().withId(1L)
 				.withDate(new GregorianCalendar().getTime())
 				.withTotalCost(100.0D)
+				.withCustomerName("Alex")
 				.havingLineItem(100L, "cell phone", 2L, 75.0D)
 				.havingLineItem(100L, "cell phone charger", 1L, 25.0D)
 				.build();

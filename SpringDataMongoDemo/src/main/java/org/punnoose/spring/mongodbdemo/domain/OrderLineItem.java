@@ -1,5 +1,7 @@
 package org.punnoose.spring.mongodbdemo.domain;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 public class OrderLineItem {
@@ -7,7 +9,7 @@ public class OrderLineItem {
 	@Field("itemNumber")
 	private Long itemNumber;
 	
-	@Field("itemNamer")
+	@Field("itemName")
 	private String itemName;
 	
 	@Field("itemQuantity")
@@ -15,6 +17,17 @@ public class OrderLineItem {
 	
 	@Field("price")
 	private Double totalCost;
+	
+	public OrderLineItem() {
+		this(0L, null, 0L, 0.0D);
+	}
+	
+	public OrderLineItem(Long itemNumber, String itemName, Long itemQuantity, Double totalCost) {
+		this.itemNumber = itemNumber;
+		this.itemName = itemName;
+		this.itemQuantity = itemQuantity;
+		this.totalCost = totalCost;
+	}
 	
 	public Long getItemNumber() {
 		return itemNumber;
@@ -39,5 +52,15 @@ public class OrderLineItem {
 	}
 	public void setTotalCost(Double totalCost) {
 		this.totalCost = totalCost;
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+	
+	@Override
+	public boolean equals(Object that) {
+		return EqualsBuilder.reflectionEquals(this,that);
 	}
 }

@@ -3,6 +3,8 @@ package org.punnoose.spring.mongodbdemo.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -18,6 +20,9 @@ public class Order {
 	
 	@Field("price")
 	private Double totalCost;
+
+	@Field("customer")
+	private String customerName;
 	
 	private List<OrderLineItem> lineItems;
 	
@@ -46,4 +51,21 @@ public class Order {
 	public void setOrderNumber(Long orderNumber) {
 		this.orderNumber = orderNumber;
 	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+	
+	@Override
+	public boolean equals(Object that) {
+		return EqualsBuilder.reflectionEquals(this,that);
+	}
+	
 }

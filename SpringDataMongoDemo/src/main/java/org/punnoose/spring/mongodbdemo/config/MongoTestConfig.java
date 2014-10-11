@@ -42,7 +42,7 @@ public class MongoTestConfig {
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertySourcesPlaceholderConfigurer props = new PropertySourcesPlaceholderConfigurer();
 		props.setLocations(new Resource[] { new ClassPathResource(
-				"application-test.properties") });
+				"application-prod.properties") });
 		return props;
 	}
 }
