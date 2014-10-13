@@ -51,15 +51,19 @@ public class OrderRepositoryTest {
 	@Test
 	public void should_add_order_lines_to_order() throws Exception {
 
-		Order orderToBeSaved = TestDataFixture.gerDummyOrder();
-		saveOrder(orderToBeSaved);
-		repository.addLineItemToOrder(orderToBeSaved.getOrderNumber(),
-				new OrderLineItem(3L, "new item", 1L, 10.0D));
+		Order toBeSavedOrder = TestDataFixture.gerDummyOrder();
+		saveOrder(toBeSavedOrder);
 
-		Order order = repository.getOne(orderToBeSaved.getOrderNumber());
-		assertThat(
-				order.getLineItems().size(),
-				equalTo(orderToBeSaved.getLineItems().size() + 1));
+		OrderLineItem toBeAddedItem = new OrderLineItem(3L, "new item", 1L, 10.0D);
+		repository.addLineItemToOrder(toBeSavedOrder.getOrderNumber(),
+				toBeAddedItem);
+
+		Order order = repository.getOne(toBeSavedOrder.getOrderNumber());
+		
+		assertThat(order.getLineItems().size(), 
+				equalTo(toBeSavedOrder.getLineItems().size() + 1));
+		assertThat(order.getTotalCost(), 
+				equalTo(toBeSavedOrder.getTotalCost() + toBeAddedItem.getTotalCost()));
 	}
 
 	private void saveOrder(Order order) {

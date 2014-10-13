@@ -1,5 +1,8 @@
 package org.punnoose.spring.mongodbdemo.repository;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
 import java.util.List;
 
 import org.punnoose.spring.mongodbdemo.domain.Order;
@@ -9,9 +12,6 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Repository
 public class OrderRepository {
@@ -43,7 +43,9 @@ public class OrderRepository {
 	public void addLineItemToOrder(Long id, OrderLineItem item) {
 		mongo.updateFirst(
 				query(where("orderNumber").is(id)),
-				new Update().push("lineItems", item), 
+				new Update()
+					.push("lineItems", item)
+					.inc("price", item.getTotalCost()), 
 				Order.class,
 				COLLECTION_NAME);
 	}
