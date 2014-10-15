@@ -1,4 +1,4 @@
-package org.punnoose.spring.mongodbdemo.repository;
+package org.punnoose.spring.mongodbdemo.config;
 
 import java.util.Map;
 

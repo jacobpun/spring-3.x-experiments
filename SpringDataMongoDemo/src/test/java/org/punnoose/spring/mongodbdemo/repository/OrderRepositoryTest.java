@@ -1,7 +1,7 @@
 package org.punnoose.spring.mongodbdemo.repository;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {
 		org.punnoose.spring.mongodbdemo.config.MongoTestConfig.class,
 		org.punnoose.spring.mongodbdemo.config.MongoConfig.class })
-@ActiveProfiles("test")
+@ActiveProfiles("prod")
 public class OrderRepositoryTest {
 
 	@Autowired
@@ -33,14 +33,14 @@ public class OrderRepositoryTest {
 	@Test
 	public void should_save_order() {
 		Long initialCount = repository.totalOrdersCount();
-		saveOrder(TestDataFixture.gerDummyOrder());
+		saveOrder(TestDataFixture.firstOrderByAlex());
 		Long countAfterSave = repository.totalOrdersCount();
 		assertThat(countAfterSave, equalTo(initialCount + 1));
 	}
 
 	@Test
 	public void should_find_orders_by_customer_name() throws Exception {
-		Order orderTobeSaved = TestDataFixture.gerDummyOrder();
+		Order orderTobeSaved = TestDataFixture.firstOrderByAlex();
 		saveOrder(orderTobeSaved);
 		List<Order> ordersByCustomer = repository
 				.getAllOrdersByCustomerName(orderTobeSaved.getCustomerName());
@@ -51,7 +51,7 @@ public class OrderRepositoryTest {
 	@Test
 	public void should_add_order_lines_to_order() throws Exception {
 
-		Order toBeSavedOrder = TestDataFixture.gerDummyOrder();
+		Order toBeSavedOrder = TestDataFixture.firstOrderByAlex();
 		saveOrder(toBeSavedOrder);
 
 		OrderLineItem toBeAddedItem = new OrderLineItem(3L, "new item", 1L, 10.0D);

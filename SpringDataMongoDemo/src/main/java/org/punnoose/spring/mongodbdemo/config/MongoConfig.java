@@ -3,7 +3,6 @@ package org.punnoose.spring.mongodbdemo.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.punnoose.spring.mongodbdemo.repository.OrderWriteConcernResolver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

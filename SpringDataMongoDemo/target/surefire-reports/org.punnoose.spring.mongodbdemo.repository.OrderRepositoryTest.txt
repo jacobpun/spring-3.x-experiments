@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.punnoose.spring.mongodbdemo.repository.OrderRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.06 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.433 sec
