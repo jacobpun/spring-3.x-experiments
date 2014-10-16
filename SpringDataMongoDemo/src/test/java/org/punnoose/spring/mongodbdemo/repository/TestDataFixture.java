@@ -3,6 +3,7 @@ package org.punnoose.spring.mongodbdemo.repository;
 import static org.punnoose.spring.mongodbdemo.domain.builder.OrderBuilder.anOrder;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.punnoose.spring.mongodbdemo.domain.Order;
@@ -11,8 +12,10 @@ import org.punnoose.spring.mongodbdemo.domain.aggregation.OrderSummaryPerCustome
 public class TestDataFixture {
 
 	public static Order firstOrderByAlex() {
+		GregorianCalendar orderDate = new GregorianCalendar();
+		orderDate.set(2014, Calendar.JANUARY, 1);
 		return anOrder().withId(1L)
-				.withDate(new GregorianCalendar().getTime())
+				.withDate(orderDate.getTime())
 				.withTotalCost(100.0D)
 				.withCustomerName("Alex")
 				.havingLineItem(100L, "cell phone", 2L, 75.0D)
@@ -21,8 +24,11 @@ public class TestDataFixture {
 	}
 
 	public static Order secondOrderByAlex() {
+		GregorianCalendar orderDate = new GregorianCalendar();
+		orderDate.set(2014, Calendar.MARCH, 15);
+		
 		return anOrder().withId(2L)
-				.withDate(new GregorianCalendar().getTime())
+				.withDate(orderDate.getTime())
 				.withTotalCost(50.0D)
 				.withCustomerName("Alex")
 				.havingLineItem(100L, "television", 2L, 50.0D)
@@ -65,6 +71,18 @@ public class TestDataFixture {
 		orderSummaryForAlex.setAveragePrice(75.0);
 		orderSummaryForAlex.setTotalPrice(150.0);
 		orderSummaryForAlex.setProductsOrdered(Arrays.asList(new String[]{"television", "cell phone","cell phone charger"}));
+		return orderSummaryForAlex;
+	}
+
+	public static OrderSummaryPerCustomer orderSummaryForAlexSinceFeb1_2014() {
+		OrderSummaryPerCustomer orderSummaryForAlex = new OrderSummaryPerCustomer();
+		orderSummaryForAlex.setCustomerName("Alex");
+		orderSummaryForAlex.setOrderCount(1);
+		orderSummaryForAlex.setMinimumPrice(50.0);
+		orderSummaryForAlex.setMaximumPrice(50.0);
+		orderSummaryForAlex.setAveragePrice(50.0);
+		orderSummaryForAlex.setTotalPrice(50.0);
+		orderSummaryForAlex.setProductsOrdered(Arrays.asList(new String[]{"television"}));
 		return orderSummaryForAlex;
 	}
 

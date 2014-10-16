@@ -4,13 +4,17 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Categories.ExcludeCategory;
 import org.junit.runner.RunWith;
 import org.punnoose.spring.mongodbdemo.domain.Order;
 import org.punnoose.spring.mongodbdemo.domain.aggregation.OrderSummaryPerCustomer;
+import org.punnoose.spring.mongodbdemo.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,18 +36,16 @@ public class OrderAggregationRepositoryTest {
 	@Before
 	public void init() {
 		repository.removeAll();
-	}
-
-	@Test
-	public void should_get_order_summary() {
 		saveOrder(TestDataFixture.firstOrderByAlex());
 		saveOrder(TestDataFixture.secondOrderByAlex());
 		saveOrder(TestDataFixture.firstOrderByGeorge());
 		saveOrder(TestDataFixture.firstOrderByJoe());
 		saveOrder(TestDataFixture.secondOrderByJoe());
+	}
 
+	@Test
+	public void should_get_order_summary() {
 		List<OrderSummaryPerCustomer> orderSummaryList = aggrRepository.getOrderSummary();
-		
 		assertThat(
 				orderSummaryList,
 				containsInAnyOrder(
@@ -54,23 +56,23 @@ public class OrderAggregationRepositoryTest {
 	}
 
 	@Test
-	public void should_get_order_summary_for_a_user() {
-		saveOrder(TestDataFixture.firstOrderByAlex());
-		saveOrder(TestDataFixture.secondOrderByAlex());
-		saveOrder(TestDataFixture.firstOrderByGeorge());
-		saveOrder(TestDataFixture.firstOrderByJoe());
-		saveOrder(TestDataFixture.secondOrderByJoe());
-
-		OrderSummaryPerCustomer orderSummary = aggrRepository.getOrderSummary("Alex");
-		
+	public void should_get_order_summary_for_a_user() throws ItemNotFoundException {
+		GregorianCalendar orderDate = new GregorianCalendar();
+		orderDate.set(2014, Calendar.FEBRUARY, 1);
+		OrderSummaryPerCustomer orderSummary = aggrRepository.getOrderSummary("Alex", orderDate.getTime());
 		assertThat(
 				orderSummary,
 				equalTo(
-						TestDataFixture.orderSummaryForAlex()
+						TestDataFixture.orderSummaryForAlexSinceFeb1_2014()
 				));
 	}
 
-	
+	@Test(expected=ItemNotFoundException.class)
+	public void should_throw_item_not_found_exception_if_order_summary_not_found() throws ItemNotFoundException {
+		GregorianCalendar orderDate = new GregorianCalendar();
+		orderDate.set(2014, Calendar.APRIL, 1);
+		aggrRepository.getOrderSummary("Alex", orderDate.getTime());
+	}
 	
 	private void saveOrder(Order order) {
 		repository.save(order);

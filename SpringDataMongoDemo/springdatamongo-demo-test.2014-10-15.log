@@ -1,0 +1,2 @@
+23:33:01.858 [main] DEBUG o.p.s.m.r.OrderAggregationRepository getOrderSummary  - - Fetched 3 Order Summary Lists 
+23:33:02.087 [main] DEBUG o.p.s.m.r.OrderAggregationRepository getOrderSummary  - - Order Summary Lists for Customer Alex is OrderSummaryPerCustomer [customerName=Alex, orderCount=2, totalPrice=150.0, averagePrice=75.0, minimumPrice=50.0, maximumPrice=100.0, productsOrdered=[television, cell phone, cell phone charger]] 
