@@ -1,6 +1,7 @@
 package org.punnoose.spring.mongodbdemo.repository;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -52,6 +53,25 @@ public class OrderAggregationRepositoryTest {
 				));
 	}
 
+	@Test
+	public void should_get_order_summary_for_a_user() {
+		saveOrder(TestDataFixture.firstOrderByAlex());
+		saveOrder(TestDataFixture.secondOrderByAlex());
+		saveOrder(TestDataFixture.firstOrderByGeorge());
+		saveOrder(TestDataFixture.firstOrderByJoe());
+		saveOrder(TestDataFixture.secondOrderByJoe());
+
+		OrderSummaryPerCustomer orderSummary = aggrRepository.getOrderSummary("Alex");
+		
+		assertThat(
+				orderSummary,
+				equalTo(
+						TestDataFixture.orderSummaryForAlex()
+				));
+	}
+
+	
+	
 	private void saveOrder(Order order) {
 		repository.save(order);
 	}
