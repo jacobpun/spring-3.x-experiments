@@ -45,7 +45,6 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>${org.mongodb.version}</version>
 		</dependency>
-		<!-- Logging with SLF4J & LogBack -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
