@@ -50,12 +50,12 @@ public class OrderSummaryPerCustomer {
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this,new String[] {"productsOrdered"});
+		return HashCodeBuilder.reflectionHashCode(this,new String[] {"productListCorrected", "productsOrdered"});
 	}
 
 	@Override
 	public boolean equals(Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, new String[] {"productsOrdered"});
+		return EqualsBuilder.reflectionEquals(this, that, new String[] {"productListCorrected", "productsOrdered"});
 	}
 
 	@Override
