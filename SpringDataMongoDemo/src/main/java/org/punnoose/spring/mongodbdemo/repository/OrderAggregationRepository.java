@@ -1,5 +1,8 @@
 package org.punnoose.spring.mongodbdemo.repository;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 import java.util.Date;
@@ -11,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Repository;
@@ -27,15 +29,16 @@ public class OrderAggregationRepository {
 
 	public List<OrderSummaryPerCustomer> getOrderSummary() {
 
-		AggregationOperation group = Aggregation.group("customer").count()
-				.as("orderCount").sum("price").as("totalPrice").min("price")
-				.as("minimumPrice").max("price").as("maximumPrice")
-				.avg("price").as("averagePrice").addToSet("lineItems.itemName")
+		AggregationOperation group = group("customer").count().as("orderCount")
+				.sum("price").as("totalPrice").min("price").as("minimumPrice")
+				.max("price").as("maximumPrice").avg("price")
+				.as("averagePrice").addToSet("lineItems.itemName")
 				.as("productsOrdered");
-		Aggregation aggregation = Aggregation.newAggregation(group);
+
 		AggregationResults<OrderSummaryPerCustomer> result = this.mongo
-				.aggregate(aggregation, COLLECTION_NAME,
-						OrderSummaryPerCustomer.class);
+				.aggregate(newAggregation(group), 
+				COLLECTION_NAME,
+				OrderSummaryPerCustomer.class);
 
 		List<OrderSummaryPerCustomer> orderSumamryList = result
 				.getMappedResults();
@@ -49,22 +52,21 @@ public class OrderAggregationRepository {
 	public OrderSummaryPerCustomer getOrderSummary(String customerName,
 			Date sinceDate) throws ItemNotFoundException {
 
-		AggregationOperation match = Aggregation.match(where("customer")
-				.is(customerName).and("date").gt(sinceDate));
+		AggregationOperation match = match(where("customer").is(customerName)
+				.and("date").gt(sinceDate));
 
-		AggregationOperation group = Aggregation.group("customer").count()
-				.as("orderCount").sum("price").as("totalPrice").min("price")
-				.as("minimumPrice").max("price").as("maximumPrice")
-				.avg("price").as("averagePrice").addToSet("lineItems.itemName")
+		AggregationOperation group = group("customer").count().as("orderCount")
+				.sum("price").as("totalPrice").min("price").as("minimumPrice")
+				.max("price").as("maximumPrice").avg("price")
+				.as("averagePrice").addToSet("lineItems.itemName")
 				.as("productsOrdered");
 
-		Aggregation aggregation = Aggregation.newAggregation(match, group);
-
 		AggregationResults<OrderSummaryPerCustomer> result = this.mongo
-				.aggregate(aggregation, COLLECTION_NAME,
-						OrderSummaryPerCustomer.class);
+				.aggregate(newAggregation(match, group), 
+				COLLECTION_NAME,
+				OrderSummaryPerCustomer.class);
 
-		if (gotResults(result)) {
+		if (isValid(result)) {
 			OrderSummaryPerCustomer orderSumamry = result.getMappedResults()
 					.get(0);
 			logger.debug("Order Summary Lists for Customer {} is {}",
@@ -79,7 +81,7 @@ public class OrderAggregationRepository {
 		}
 	}
 
-	private boolean gotResults(
+	private boolean isValid(
 			AggregationResults<OrderSummaryPerCustomer> result) {
 		return result.getMappedResults().size() >= 1;
 	}
