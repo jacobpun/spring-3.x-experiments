@@ -28,7 +28,7 @@ public class BulkLoadingForShardDemo {
 		ctx.refresh();
 		OrderRepository repo = ctx.getBean(OrderRepository.class);
 		
-		for (int i = 100000; i < 100010; i++) {
+		for (int i = 1; i < 100000; i++) {
 			System.out.println(i);
 			Order order = OrderBuilder.anOrder()
 					.withCustomerName(randomString.nextString())

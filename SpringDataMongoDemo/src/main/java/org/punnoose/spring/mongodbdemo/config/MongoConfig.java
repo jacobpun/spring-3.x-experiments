@@ -63,6 +63,4 @@ public class MongoConfig {
 				"application-prod.properties") });
 		return props;
 	}
-
-
 }
